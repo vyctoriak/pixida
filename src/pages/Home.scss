@@ -1,0 +1,9 @@
+.card-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+h1 {
+    margin: 32px 0;
+    color: var(--dust);
+}
