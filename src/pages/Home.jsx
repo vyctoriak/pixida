@@ -3,6 +3,7 @@ import "./Home.scss";
 import SearchBar from "../components/SearchBar/SearchBar";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Footer from "../components/Footer/Footer";
 
 const Home = () => {
   const [artObjects, setArtObjects] = useState([]);
@@ -44,6 +45,7 @@ const Home = () => {
           </Link>
         ))}
       </div>
+      <Footer />
     </div>
   );
 };
