@@ -1,16 +1,27 @@
+import { useState } from "react";
+import PropTypes from "prop-types";
 import logo from "../../assets/logo.svg";
 import "./SearchBar.scss";
+import { Link } from "react-router-dom";
 
-const SearchBar = () => {
+const SearchBar = ({ onSearch }) => {
+  const [searchQuery, setSearchQuery] = useState("");
+
   const handleSearchClick = () => {
-    console.log("clicked");
+    onSearch(searchQuery);
+  };
+
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
   return (
     <div className="search-bar">
       <div className="logo-and-title">
         <img src={logo} alt="logo" />
-        <h4>Art API</h4>
+        <h4>
+          <Link to="/">Art API</Link>
+        </h4>
       </div>
 
       <div className="input-and-button">
@@ -20,6 +31,7 @@ const SearchBar = () => {
           id="search"
           placeholder="Please type in your search"
           aria-label="Search"
+          onChange={handleInputChange}
         />
         <button className="btn-primary" onClick={handleSearchClick}>
           Search
@@ -27,6 +39,10 @@ const SearchBar = () => {
       </div>
     </div>
   );
+};
+
+SearchBar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
 };
 
 export default SearchBar;
