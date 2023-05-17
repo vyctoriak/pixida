@@ -1,0 +1,26 @@
+.pagination {
+    ul {
+        list-style: none;
+        display: flex;
+        justify-content: flex-end;
+        color: var(--dust);
+        gap: 8px;
+        margin: 32px 0;
+
+        .current-page {
+            border: 1px solid var(--btn-primary);
+        }
+
+        li {
+            border: 1px solid var(--dust);
+            box-shadow: 0px 16px 16px 4px var(--shadow-01);
+            padding: 1rem;
+            border-radius: 50%;
+            cursor: pointer;
+
+            svg {
+                height: 100%;
+            }
+        }
+    }
+}
