@@ -1,49 +1,91 @@
 import Card from "../components/Cards/Card";
 import "./Home.scss";
 import SearchBar from "../components/SearchBar/SearchBar";
+import Pagination from "../components/Pagination/Pagination";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Home = () => {
   const [artObjects, setArtObjects] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [count, setCount] = useState(0);
+  const [searchQuery, setSearchQuery] = useState("");
+  const itemsPerPage = 9;
 
-  async function fetchArtObjects() {
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  async function fetchArtObjects(page, itemsPerPage, searchQuery) {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        "https://www.rijksmuseum.nl/api/en/collection?key=2esrTh6M&ps=10&p=1"
-      );
+      let apiUrl = `https://www.rijksmuseum.nl/api/en/collection?key=2esrTh6M&ps=${itemsPerPage}&p=${page}`;
+      if (searchQuery) {
+        const searchTerms = searchQuery.split(" ");
+
+        if (searchTerms.length > 1) {
+          const wildCardQuery = searchTerms.map((term) => `${term}+`).join("");
+          apiUrl += `&q=${wildCardQuery}`;
+        } else {
+          apiUrl += `&q=${searchQuery}`;
+        }
+      }
+
+      const response = await fetch(apiUrl);
       const data = await response.json();
-      console.log(data.artObjects);
+      setCount(data.count);
       setArtObjects(data.artObjects);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   }
 
   useEffect(() => {
-    fetchArtObjects();
-  }, []);
+    fetchArtObjects(currentPage, itemsPerPage, searchQuery);
+  }, [currentPage, itemsPerPage, searchQuery]);
+
+  const totalPages = Math.ceil(count / itemsPerPage);
 
   return (
-    <div className="conteiner">
-      <SearchBar />
-      <h1>All artwork</h1>
-      <div className="card-list">
-        {artObjects.map((artObject) => (
-          <Link to="#" key={artObject.id}>
-            <Card
-              imageUrl={artObject.webImage.url}
-              artistName={artObject.principalOrFirstMaker}
-              title={artObject.title}
-            />
-          </Link>
-        ))}
+    <div className="container">
+      <div className="home-content">
+        <SearchBar onSearch={handleSearch} />
+
+        <h1>
+          {searchQuery
+            ? `Found ${count} results for: ${searchQuery}`
+            : "All artwork"}
+        </h1>
+
+        {loading ? (
+          <AiOutlineLoading3Quarters className="loading" />
+        ) : (
+          <div className="card-list">
+            {artObjects.map((artObject) => (
+              <Link
+                to={`/art/${artObject.objectNumber}`}
+                key={artObject.objectNumber}
+              >
+                <Card
+                  imageUrl={artObject.webImage.url}
+                  artistName={artObject.principalOrFirstMaker}
+                  title={artObject.title}
+                />
+              </Link>
+            ))}
+          </div>
+        )}
+
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={setCurrentPage}
+        />
       </div>
       <Footer />
     </div>

@@ -1,9 +1,16 @@
 .card-list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    place-items: center;
 }
 
 h1 {
     margin: 32px 0;
     color: var(--dust);
+}
+
+.home-content {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
