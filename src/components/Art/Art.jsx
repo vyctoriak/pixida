@@ -55,7 +55,7 @@ const Art = () => {
                   backgroundImage: `url(${art.webImage.url})`,
                 }}
               >
-                {art.ngTitle}
+                {art.longTitle}
               </div>
               <div className="info-table">
                 <span>Title</span>
@@ -65,7 +65,13 @@ const Art = () => {
                 <span>Object Type</span>
                 <div>{`${art.objectTypes[0]}`}</div>
                 <span>Measurements</span>
-                <div>{`height ${art.dimensions[0].value}cm x widht ${art.dimensions[1].value}cm x depth ${art.dimensions[2].value}cm`}</div>
+
+                <div>
+                  {" "}
+                  {art.dimensions && art.dimensions.length > 0
+                    ? `height ${art.dimensions[0].value}cm x widht ${art.dimensions[1].value}cm x depth ${art.dimensions[2].value}cm`
+                    : "no dimensions provided"}
+                </div>
                 <span>Description</span>
                 <div>{`${art.label.description}`}</div>
               </div>
