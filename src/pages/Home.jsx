@@ -19,7 +19,7 @@ const Home = () => {
     setSearchQuery(query);
   };
 
-  async function fetchArtObjects(page, itemsPerPage, searchQuery) {
+  const fetchArtObjects = async (page, itemsPerPage, searchQuery) => {
     setLoading(true);
 
     try {
@@ -43,7 +43,7 @@ const Home = () => {
     } catch (error) {
       setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     fetchArtObjects(currentPage, itemsPerPage, searchQuery);
