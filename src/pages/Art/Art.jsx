@@ -1,5 +1,5 @@
-import SearchBar from "../SearchBar/SearchBar";
-import Footer from "../Footer/Footer";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import Footer from "../../components/Footer/Footer";
 import imagePlaceholder from "../../assets/image-placeholder.png";
 import backIcon from "../../assets/Icons/back.png";
 import { useState, useEffect } from "react";

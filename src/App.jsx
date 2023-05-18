@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import Art from "./components/Art/Art";
+import Home from "./pages/Home/Home";
+import Art from "./pages/Art/Art";
 
 function App() {
   return (

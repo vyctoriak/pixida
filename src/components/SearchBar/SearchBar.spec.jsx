@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react";
-import SearchBar from "../components/SearchBar/SearchBar";
+import SearchBar from "./SearchBar";
 import { BrowserRouter as Router } from "react-router-dom";
 
 describe("SearchBar", () => {

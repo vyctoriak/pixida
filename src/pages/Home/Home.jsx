@@ -1,8 +1,8 @@
-import Card from "../components/Card/Card";
-import SearchBar from "../components/SearchBar/SearchBar";
-import Footer from "../components/Footer/Footer";
-import Pagination from "../components/Pagination/Pagination";
-import imagePlaceholder from "../assets/image-placeholder.png";
+import Card from "../../components/Card/Card";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import Footer from "../../components/Footer/Footer";
+import Pagination from "../../components/Pagination/Pagination";
+import imagePlaceholder from "../../assets/image-placeholder.png";
 import { useEffect, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { useLocation, useNavigate, Link } from "react-router-dom";
@@ -76,7 +76,11 @@ const Home = () => {
         </h1>
 
         {loading ? (
-          <AiOutlineLoading3Quarters className="loading" />
+          <AiOutlineLoading3Quarters
+            className="loading"
+            id="loading"
+            data-testid="loading"
+          />
         ) : (
           <div className="card-container">
             <div className="card-list">
