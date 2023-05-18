@@ -20,11 +20,9 @@ const Art = () => {
         `https://www.rijksmuseum.nl/api/en/collection/${id}?key=2esrTh6M`
       );
       const data = await response.json();
-      console.log(" data art  ===> ", data.artObject);
       setArt(data.artObject);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
     }
   }
@@ -34,9 +32,9 @@ const Art = () => {
   }, [id]);
 
   return (
-    <div className="container art">
+    <div className="container art" data-testid="art">
       <div className="art-content">
-        <SearchBar />
+        <SearchBar onSearch={() => {}} />
         <div className="go-back">
           <img src={backIcon} alt="back icon" />
           <span>
@@ -45,7 +43,10 @@ const Art = () => {
         </div>
 
         {loading ? (
-          <AiOutlineLoading3Quarters className="loading" />
+          <AiOutlineLoading3Quarters
+            className="loading"
+            data-testid="loading-spinner"
+          />
         ) : (
           art && (
             <>
@@ -59,7 +60,9 @@ const Art = () => {
               </div>
               <div className="info-table">
                 <span>Title</span>
-                <div>{`${art.longTitle}`}</div>
+                <div>
+                  {art.longTitle ? `${art.longTitle}` : `No title provided`}
+                </div>
                 <span>Artist</span>
                 <div>{`${art.principalMaker}`}</div>
                 <span>Object Type</span>
