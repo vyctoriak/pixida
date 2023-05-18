@@ -58,10 +58,10 @@ a {
   display: flex;
   margin: 4rem auto;
   transform: rotate(359deg);
-  -webkit-animation: loading 2s linear infinite;
+  animation: loading 2s linear infinite;
 }
 
-@-webkit-keyframes loading {
+@keyframes loading {
   from {
     -webkit-transform: rotate(0deg);
   }

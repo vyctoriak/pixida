@@ -65,28 +65,29 @@ const Home = () => {
         {loading ? (
           <AiOutlineLoading3Quarters className="loading" />
         ) : (
-          <div className="card-list">
-            {artObjects.map((artObject) => (
-              <Link
-                to={`/art/${artObject.objectNumber}`}
-                key={artObject.objectNumber}
-              >
-                <Card
-                  imageUrl={artObject.webImage.url}
-                  artistName={artObject.principalOrFirstMaker}
-                  title={artObject.title}
-                />
-              </Link>
-            ))}
+          <div className="card-container">
+            <div className="card-list">
+              {artObjects.map((artObject) => (
+                <Link
+                  to={`/art/${artObject.objectNumber}`}
+                  key={artObject.objectNumber}
+                >
+                  <Card
+                    imageUrl={artObject.webImage.url}
+                    artistName={artObject.principalOrFirstMaker}
+                    title={artObject.title}
+                  />
+                </Link>
+              ))}
+            </div>
           </div>
         )}
-
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
       </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
       <Footer />
     </div>
   );

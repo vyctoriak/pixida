@@ -1,16 +1,28 @@
-.card-list {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    place-items: center;
-}
-
-h1 {
-    margin: 32px 0;
-    color: var(--dust);
-}
-
 .home-content {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+
+    h1 {
+        margin: 32px 0;
+        color: var(--dust);
+    }
+
+    .card-container {
+        display: flex;
+        flex-direction: column;
+
+        .card-list {
+            display: grid;
+            gap: 30px;
+
+            @media (min-width: 900px) {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            @media (min-width: 1300px) {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    }
 }
