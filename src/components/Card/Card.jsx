@@ -1,17 +1,12 @@
 import "./Card.scss";
 import PropTypes from "prop-types";
-import imagePlaceholder from "../../assets/image-placeholder.png";
 
 const Card = ({ imageUrl, artistName, title }) => {
   return (
     <div
       data-testid="card-item"
       className="card-item"
-      style={
-        imageUrl
-          ? { backgroundImage: `url(${imageUrl})` }
-          : { backgroundImage: `url(${imagePlaceholder})` }
-      }
+      style={{ backgroundImage: `url(${imageUrl})` }}
     >
       <h1>{title ? title : "Untitled"}</h1>
       <div className="author-name">
@@ -22,7 +17,7 @@ const Card = ({ imageUrl, artistName, title }) => {
 };
 
 Card.propTypes = {
-  imageUrl: PropTypes.string.isRequired,
+  imageUrl: PropTypes.string,
   artistName: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
 };

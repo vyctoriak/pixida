@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import imagePlaceholder from "../assets/image-placeholder.png";
 
 const Home = () => {
   const [artObjects, setArtObjects] = useState([]);
@@ -73,7 +74,11 @@ const Home = () => {
                   key={artObject.objectNumber}
                 >
                   <Card
-                    imageUrl={artObject.webImage.url}
+                    imageUrl={
+                      artObject.webImage
+                        ? artObject.webImage.url
+                        : imagePlaceholder
+                    }
                     artistName={artObject.principalOrFirstMaker}
                     title={artObject.title}
                   />
