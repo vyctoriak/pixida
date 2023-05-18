@@ -5,10 +5,12 @@ import { useParams, Link } from "react-router-dom";
 import backIcon from "../../assets/Icons/back.png";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import "./Art.scss";
+import imagePlaceholder from "../../assets/image-placeholder.png";
 
 const Art = () => {
   const [art, setArt] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   let { id } = useParams();
 
@@ -23,6 +25,7 @@ const Art = () => {
       setArt(data.artObject);
       setLoading(false);
     } catch (error) {
+      setError(error);
       setLoading(false);
     }
   }
@@ -30,6 +33,53 @@ const Art = () => {
   useEffect(() => {
     getArt(id);
   }, [id]);
+
+  const renderDimensions = () => {
+    if (art && art.dimensions && art.dimensions.length > 0) {
+      const dimensions = art.dimensions;
+      let dimensionString = "";
+
+      dimensions.forEach((dimension, index) => {
+        if (dimension.value) {
+          dimensionString += `${dimension.type} ${dimension.value}cm`;
+          if (index !== dimensions.length - 1) {
+            dimensionString += " x ";
+          }
+        }
+      });
+
+      return (
+        <>
+          <div>{dimensionString}</div>
+        </>
+      );
+    } else {
+      return (
+        <>
+          <div>No dimensions provided</div>
+        </>
+      );
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="container art" data-testid="art">
+        <AiOutlineLoading3Quarters
+          className="loading"
+          data-testid="loading-spinner"
+        />
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container art" data-testid="art">
+        <div>Error occurred: {error.message}</div>
+      </div>
+    );
+  }
 
   return (
     <div className="container art" data-testid="art">
@@ -53,30 +103,32 @@ const Art = () => {
               <div
                 className="art-image-and-title"
                 style={{
-                  backgroundImage: `url(${art.webImage.url})`,
+                  backgroundImage: art?.webImage?.url
+                    ? `url(${art.webImage.url})`
+                    : `url(${imagePlaceholder})`,
                 }}
               >
                 {art.longTitle}
               </div>
               <div className="info-table">
                 <span>Title</span>
-                <div>
-                  {art.longTitle ? `${art.longTitle}` : `No title provided`}
-                </div>
+                <div>{art.longTitle ? art.longTitle : "No title provided"}</div>
                 <span>Artist</span>
                 <div>{`${art.principalMaker}`}</div>
                 <span>Object Type</span>
-                <div>{`${art.objectTypes[0]}`}</div>
-                <span>Measurements</span>
-
                 <div>
-                  {" "}
-                  {art.dimensions && art.dimensions.length > 0
-                    ? `height ${art.dimensions[0].value}cm x widht ${art.dimensions[1].value}cm x depth ${art.dimensions[2].value}cm`
-                    : "no dimensions provided"}
+                  {art.objectTypes == 0
+                    ? "No object type provided"
+                    : art.objectTypes[0]}
                 </div>
+                <span>Measurements</span>
+                <div>{renderDimensions()}</div>
                 <span>Description</span>
-                <div>{`${art.label.description}`}</div>
+                <div>
+                  {art?.label?.description
+                    ? art.label.description
+                    : "No description provided"}
+                </div>
               </div>
             </>
           )
