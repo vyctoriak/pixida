@@ -2,7 +2,7 @@ import "./Footer.scss";
 
 const Footer = () => {
   return (
-    <div className="footer">
+    <div data-testid="footer" className="footer">
       <p>Art API</p>
     </div>
   );
