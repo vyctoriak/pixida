@@ -8,11 +8,26 @@ const SearchBar = ({ onSearch }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const handleSearchClick = () => {
-    onSearch(searchQuery);
+    performSearch();
   };
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
+  };
+
+  const clearSearchResults = () => {
+    setSearchQuery("");
+    onSearch("");
+  };
+
+  const handleInputKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      performSearch();
+    }
+  };
+
+  const performSearch = () => {
+    onSearch(searchQuery);
   };
 
   return (
@@ -20,7 +35,9 @@ const SearchBar = ({ onSearch }) => {
       <div className="logo-and-title">
         <img src={logo} alt="logo" />
         <h4>
-          <Link to="/">Art API</Link>
+          <Link to="/" onClick={clearSearchResults}>
+            Art API
+          </Link>
         </h4>
       </div>
 
@@ -31,7 +48,9 @@ const SearchBar = ({ onSearch }) => {
           id="search"
           placeholder="Please type in your search"
           aria-label="Search"
+          value={searchQuery}
           onChange={handleInputChange}
+          onKeyDown={handleInputKeyDown}
         />
         <button className="btn-primary" onClick={handleSearchClick}>
           Search
