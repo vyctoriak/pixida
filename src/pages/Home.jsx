@@ -1,23 +1,35 @@
 import Card from "../components/Card/Card";
-import "./Home.scss";
 import SearchBar from "../components/SearchBar/SearchBar";
-import Pagination from "../components/Pagination/Pagination";
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Footer from "../components/Footer/Footer";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import Pagination from "../components/Pagination/Pagination";
 import imagePlaceholder from "../assets/image-placeholder.png";
+import { useEffect, useState } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import "./Home.scss";
 
 const Home = () => {
   const [artObjects, setArtObjects] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setCount] = useState(0);
-  const [searchQuery, setSearchQuery] = useState("");
   const itemsPerPage = 9;
 
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const searchQuery = searchParams.get("q");
+  const history = useNavigate();
+
   const handleSearch = (query) => {
-    setSearchQuery(query);
+    const searchParams = new URLSearchParams();
+    searchParams.set("q", query);
+
+    if (location.pathname === "/") {
+      history(`/?${searchParams.toString()}`);
+    } else {
+      history(`/art/?${searchParams.toString()}`);
+    }
+    console.log("arts ---> ", artObjects);
   };
 
   const fetchArtObjects = async (page, itemsPerPage, searchQuery) => {

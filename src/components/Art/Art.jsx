@@ -1,11 +1,11 @@
 import SearchBar from "../SearchBar/SearchBar";
 import Footer from "../Footer/Footer";
-import { useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import imagePlaceholder from "../../assets/image-placeholder.png";
 import backIcon from "../../assets/Icons/back.png";
+import { useState, useEffect } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import "./Art.scss";
-import imagePlaceholder from "../../assets/image-placeholder.png";
 
 const Art = () => {
   const [art, setArt] = useState(null);
@@ -13,6 +13,7 @@ const Art = () => {
   const [error, setError] = useState(null);
 
   let { id } = useParams();
+  let history = useNavigate();
 
   async function getArt(id) {
     setLoading(true);
@@ -62,17 +63,6 @@ const Art = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="container art" data-testid="art">
-        <AiOutlineLoading3Quarters
-          className="loading"
-          data-testid="loading-spinner"
-        />
-      </div>
-    );
-  }
-
   if (error) {
     return (
       <div className="container art" data-testid="art">
@@ -81,10 +71,15 @@ const Art = () => {
     );
   }
 
+  const handleSearch = (query) => {
+    history(`/?q=${query}`);
+  };
+
   return (
     <div className="container art" data-testid="art">
       <div className="art-content">
-        <SearchBar onSearch={() => {}} />
+        <SearchBar onSearch={(query) => handleSearch(query)} />
+
         <div className="go-back">
           <img src={backIcon} alt="back icon" />
           <span>
