@@ -1,4 +1,4 @@
-import Card from "../components/Cards/Card";
+import Card from "../components/Card/Card";
 import "./Home.scss";
 import SearchBar from "../components/SearchBar/SearchBar";
 import Pagination from "../components/Pagination/Pagination";
