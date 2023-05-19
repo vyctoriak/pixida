@@ -5,6 +5,8 @@ of their collection.
 
 ## Getting Started
 
+Clone the project and go to the project folder
+
 Install the dependencies
 
     npm install
