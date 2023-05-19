@@ -5,9 +5,6 @@ of their collection.
 
 ## Getting Started
 
-### Installing
-
-
 Install the dependencies
 
     npm install
