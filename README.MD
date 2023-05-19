@@ -32,4 +32,4 @@ You can see the project live here: [Click here!](https://bright-heliotrope-1b134
 
 ## Authors
 
-  - **Vyctoria Karina** -
+  - **Vyctoria Karina**
