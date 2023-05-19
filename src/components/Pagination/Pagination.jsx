@@ -32,15 +32,13 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
         >
           {currentPage}
         </li>
-        {/* {currentPage < totalPages && (
-          <> */}
         <li onClick={() => handlePageClick(currentPage + 1)}>
           {currentPage + 1}
         </li>
         <li>...</li>
-        {/* <li onClick={() => handlePageClick(totalPages)}>{totalPages}</li> */}
-        {/* </>
-        )} */}
+        <li onClick={() => handlePageClick(currentPage + 4)}>
+          {currentPage + 4}
+        </li>
         <li onClick={handleNextPage}>
           <img src={right} alt="right arrow icon" />
         </li>
