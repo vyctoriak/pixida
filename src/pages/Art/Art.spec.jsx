@@ -1,14 +1,6 @@
 import React from "react";
 import { render, waitFor, screen } from "@testing-library/react";
-import {
-  MemoryRouter,
-  Routes,
-  Route,
-  useParams,
-  useNavigate,
-} from "react-router-dom";
-import { act } from "react-dom/test-utils";
-
+import { MemoryRouter, Routes, Route, useParams } from "react-router-dom";
 import Art from "./Art";
 
 jest.mock("react-router-dom", () => ({
